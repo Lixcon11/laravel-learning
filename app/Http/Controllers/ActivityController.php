@@ -12,7 +12,9 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return 'Listado de actividades';
+        $activities = Activity::all();
+
+        return view('activities.index', ['activities' => $activities]);
     }
 
     /**
@@ -20,7 +22,7 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        return 'Formulario para crear una nueva actividad';
+        return view('activities.create');
     }
 
     /**
@@ -28,7 +30,18 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        return 'Almacenando nueva actividad';
+        $validatedData = $request->validate([
+            'type' => 'required|in:surf,windsurf,kayak,atv,hot air balloon',
+            'user_id' => 'required|exists:users,id',
+            'datetime' => 'required|date',
+            'paid' => 'required|boolean',
+            'notes' => 'nullable|string',
+            'satisfaction' => 'required|integer|min:0|max:10',
+        ]);
+
+        Activity::create($validatedData);
+
+        return redirect()->route('activities.index')->with('success', 'Actividad creada correctamente.');
     }
 
     /**
@@ -36,7 +49,7 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        return 'Mostrando actividad: ' . $activity->id;
+        return view('activities.show', ['activity' => $activity]);
     }
 
     /**
@@ -44,7 +57,7 @@ class ActivityController extends Controller
      */
     public function edit(Activity $activity)
     {
-        return 'Formulario para editar actividad: ' . $activity->id;
+        return view('activities.edit', ['activity' => $activity]);
     }
 
     /**
@@ -52,7 +65,17 @@ class ActivityController extends Controller
      */
     public function update(Request $request, Activity $activity)
     {
-        return 'Actualizando actividad: ' . $activity->id;
+        $validatedData = $request->validate([
+            'type' => 'required|in:surf,windsurf,kayak,atv,hot air balloon',
+            'datetime' => 'required|date',
+            'paid' => 'required|boolean',
+            'notes' => 'nullable|string',
+            'satisfaction' => 'required|integer|min:0|max:10',
+        ]);
+
+        $activity->update($validatedData);
+
+        return redirect()->route('activities.index')->with('success', 'Actividad actualizada correctamente.');
     }
 
     /**
@@ -60,6 +83,8 @@ class ActivityController extends Controller
      */
     public function destroy(Activity $activity)
     {
-        return 'Eliminando actividad: ' . $activity->id;
+        $activity->delete();
+
+        return redirect()->route('activities.index')->with('success', 'Actividad eliminada correctamente.');
     }
 }
