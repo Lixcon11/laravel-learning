@@ -1,19 +1,39 @@
 <?php
 
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relation\BelongsTo;
-
-class Activity extends Model
-{
-    use HasFactory;
-
-    protected $fillable = ["type", "datetime", "notes", "satisfaction"];
-
-    public function user(): BelongsTo
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        return $this->belongsTo(User::class);
+        Schema::create('activities', function (Blueprint $table) {
+            $table->id();
+            
+            $table->enum('type', ['surf', 'windsurf', 'kayak', 'atv', 'hot air balloon']);
+            
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            
+            $table->dateTime('datetime');
+            
+            $table->boolean('paid');
+            
+            $table->text('notes')->nullable();
+            
+            $table->unsignedTinyInteger('satisfaction')->default(0)->check('satisfaction <= 10');
+
+            $table->timestamps();
+        });
     }
-}
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('activities');
+    }
+};
