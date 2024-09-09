@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->enum("surf", "windsurf", "kayak", "atv", "hot air ballon");
-            $table->dateTime("date time");
+            $table->enum('activity_type', ["surf", "windsurf", "kayak", "atv", "hot air ballon"]);
+            $table->dateTime("date_time");
             $table->boolean("paid");
             $table->text("notes")->nullable();
             $table->unsignedTinyInteger("satisfaction")->nullable()->default(null);
