@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
 
-Route::get("/activities", [ActivityController::class, "index"]);
+Route::resource("activities", ActivityController::class);
 
 Route::get('/', function () {
     return view('welcome');

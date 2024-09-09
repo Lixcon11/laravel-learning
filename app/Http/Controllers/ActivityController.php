@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Activity;
 
 class ActivityController extends Controller
 {
@@ -30,7 +31,14 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "user_id" => "required|exists:users, id",
+            "type" => "required|in:surf,windsurf,kayak,atv,hot air balloon",
+            "date" => "required|date",
+            "paid" => "required|boolean",
+            "notes" => "string|nullable",
+            "satisfaction" => "integer|min:0|max:10|nullable"
+        ]);
     }
 
     /**
