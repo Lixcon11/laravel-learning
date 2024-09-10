@@ -15,18 +15,18 @@ class ActivityController extends Controller
     {
         $activities = Activity::all();
 
-        return response()->json($activities);
+        return view('activities.index', compact('activities'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    /*
+    
     public function create()
     {
-        //
+        return view('activities.create');
     }
-    */
+    
 
     /**
      * Store a newly created resource in storage.
@@ -34,17 +34,21 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "user_id" => "required|exists:users, id",
+            "user_id" => "required|exists:users,id",
             "type" => "required|in:surf,windsurf,kayak,atv,hot air balloon",
             "date" => "required|date",
-            "paid" => "required|boolean",
+            "paid" => "boolean",
             "notes" => "string|nullable",
             "satisfaction" => "integer|min:0|max:10|nullable"
         ]);
 
-        $activity = Activity::create($validated);
+        $validated['paid'] = $request->has('paid') ? 1 : 0;
 
-        return response()->json($activity, 201);
+        dd($validated);
+
+        Activity::create($validated);
+
+        return redirect()->route('activities.index');
     }
 
     /**
@@ -53,8 +57,7 @@ class ActivityController extends Controller
     public function show(string $id)
     {
         $activity = Activity::findOrFail($id);
-
-        return response()->json($activity);
+        return view('activities.show', compact('activity'));
     }
 
     /**
@@ -85,7 +88,7 @@ class ActivityController extends Controller
     
         $activity->update($validated);
     
-        return response()->json($activity);
+        return redirect()->route('activities.index');
     }
 
     /**
@@ -97,6 +100,6 @@ class ActivityController extends Controller
 
         $activity->delete();
     
-        return response()->json(null, 204);
+        return redirect()->route('activities.index');
     }
 }
