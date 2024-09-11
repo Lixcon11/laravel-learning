@@ -42,7 +42,7 @@ class ActivityController extends Controller
             "satisfaction" => "integer|min:0|max:10|nullable"
         ]);
 
-        $validated['paid'] = $request->has('paid') ? 1 : 0;
+        $validated['paid'] = $request->has('paid') ? "yes" : "no";
 
         dd($validated);
 
