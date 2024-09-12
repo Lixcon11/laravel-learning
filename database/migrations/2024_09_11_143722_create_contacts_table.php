@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->text("name");
+            $table->dateTime("date");
+            $table->string('email')->unique();
+            $table->text("phone");
+            $table->text("subject");
+            $table->text("comment");
+            $table->enum("status", ["Archived", "Published"]);
             $table->timestamps();
         });
     }

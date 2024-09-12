@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['amenities'];
+
+    protected $casts = [
+        'amenities' => 'array'
+        /*["AC", "Breakfast", "Cleaning", "Grocery", "Shop near", "Wifi", "Kitchen", "Shower", "Single Bed", "Towels"]*/
+    ];
 }
