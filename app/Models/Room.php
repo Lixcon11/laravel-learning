@@ -13,6 +13,5 @@ class Room extends Model
 
     protected $casts = [
         'amenities' => 'array'
-        /*["AC", "Breakfast", "Cleaning", "Grocery", "Shop near", "Wifi", "Kitchen", "Shower", "Single Bed", "Towels"]*/
     ];
 }
