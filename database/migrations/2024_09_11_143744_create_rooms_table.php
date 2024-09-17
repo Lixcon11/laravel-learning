@@ -16,10 +16,9 @@ return new class extends Migration
             $table->text("roomNumber");
             $table->text("description");
             $table->enum("roomType", ["Single Bed", "Double Bed", "Double Superior", "Suite"]);
-            $table->text("description");
             $table->json('amenities')->nullable();
             $table->integer("price");
-            $table->integer("discount");
+            $table->integer("discount")->default(0);;
             $table->timestamps();
         });
     }

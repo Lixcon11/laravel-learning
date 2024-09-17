@@ -1,0 +1,16 @@
+@import "./scss/commonElements/commons.scss";
+@import "./scss/header.scss";
+@import "./scss/home.scss";
+@import "./scss/footer.scss";
+@import "./scss/rooms.scss";
+@import "./scss/about-us.scss";
+
+html, * { 
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body { 
+    min-width: 320px;
+}

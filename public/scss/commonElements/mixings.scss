@@ -1,0 +1,21 @@
+@import "./variables.scss";
+
+@mixin styledNiceText($theme: $grey) {
+  font-family: $forNiceText;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2.8px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: $theme;
+}
+
+@mixin styledBigText($theme: $darker-black) {
+  font-family: $forBigText;
+  font-weight: 400;
+  font-size: 56px;
+  letter-spacing: -1.2px;
+  line-height: 60px;
+  text-transform: capitalize;
+  color: $theme;
+}
