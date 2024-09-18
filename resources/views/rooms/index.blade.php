@@ -18,7 +18,6 @@
 <body>
     <header>
         <div class="container">
-            <!-- Your header code here -->
         </div>
     </header>
     <main>
@@ -53,7 +52,6 @@
         </section>
     </main>
     <footer>
-        <!-- Footer code here -->
     </footer>
 </body>
 </html>
